@@ -4,7 +4,6 @@ const express = require('express');
 const path = require('path');
 
 // Sets up the Express App
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -12,10 +11,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get('*', (req, res) => {
-    res.send('I am the greatest.')
-})
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+
+app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'notes.html')));
 
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
-
-// this is a test
