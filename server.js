@@ -13,7 +13,13 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+// app.get('*', (req, res) => {
+//     res.send('Bitchass bitch');
+// })
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'notes.html')));
 
