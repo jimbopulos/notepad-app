@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require("fs");
+const uniqid = require("uniqid");
 let rawData = fs.readFileSync("./db/db.json");
 
 // read and parse db.json content
@@ -40,7 +41,9 @@ app.post('/api/notes', (req, res) => {
     db.push(newNote);
     res.json(newNote);
     // return the new note to the client | give each note a unique id
-      
+    newNote.id = uniqid();
+    // const noteId = newNote.id = uniqid();
+    // console.log(noteId);
 })
 
 // PORT listener to serve the app
