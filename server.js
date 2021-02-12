@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require("fs");
+const uniqid = require("uniqid");
 let rawData = fs.readFileSync("./db/db.json");
 
 // read and parse db.json content
@@ -24,7 +25,7 @@ app.use(express.json());
 app.get('/api/notes', (req, res) => {
     // return all saved notes as JSON
     res.json(db);
-    console.log(db);
+    // console.log(db);
 });
 
 // Routes
@@ -36,12 +37,13 @@ app.get('*', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html
 app.post('/api/notes', (req, res) => {
     // save on the request body
     const newNote = req.body;
-    res.json(newNote);
     // add it to the db.json file
-    const addNewNote = db.push(newNote);
+    db.push(newNote);
+    res.json(newNote);
     // return the new note to the client | give each note a unique id
-    
-    // console.log(addNewNote);
+    newNote.id = uniqid();
+    // const noteId = newNote.id = uniqid();
+    // console.log(noteId);
 })
 
 // PORT listener to serve the app
