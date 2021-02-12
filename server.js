@@ -24,7 +24,7 @@ app.use(express.json());
 app.get('/api/notes', (req, res) => {
     // return all saved notes as JSON
     res.json(db);
-    console.log(db);
+    // console.log(db);
 });
 
 // Routes
@@ -36,12 +36,11 @@ app.get('*', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html
 app.post('/api/notes', (req, res) => {
     // save on the request body
     const newNote = req.body;
-    res.json(newNote);
     // add it to the db.json file
-    const addNewNote = db.push(newNote);
+    db.push(newNote);
+    res.json(newNote);
     // return the new note to the client | give each note a unique id
-    
-    // console.log(addNewNote);
+      
 })
 
 // PORT listener to serve the app
