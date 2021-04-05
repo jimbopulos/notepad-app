@@ -55,11 +55,13 @@ app.delete("/api/notes/:id", (req, res) => {
   // find note by its id parameter
   const targetNote = req.params.id;
   const remainingNotes = db.filter((note) => note.id !== targetNote);
-  // console.log(remainingNotes);
-  fs.writeFile("./db/db.json", JSON.stringify(remainingNotes), (err) => {
-    err ? console.log(err) : console.log(remainingNotes);
+
+  db = remainingNotes;
+
+  fs.writeFile("./db/db.json", JSON.stringify(db), (err) => {
+    err ? console.log(err) : console.log(db);
   });
-  res.json(remainingNotes);
+  res.json(db);
 });
 
 // PORT listener to serve the app
